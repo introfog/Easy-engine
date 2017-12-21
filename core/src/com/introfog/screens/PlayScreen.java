@@ -1,9 +1,12 @@
 package com.introfog.screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.introfog.GameSystem;
 import com.introfog.MyGame;
 import com.introfog.primitiveEngine.*;
 import com.introfog.primitiveEngine.Character;
+import com.introfog.render.Render;
 
 public class PlayScreen implements Screen{
 	private Character character;
@@ -22,19 +25,24 @@ public class PlayScreen implements Screen{
 	
 	@Override
 	public void show (){
-		Body body = new Body (100, 100, 200, 300);
+		Body body;
+		
+		body = new Body (100, 100, 199, 300);
 		World.getInstance ().addBody (body);
 		body = new Body (320, 50, 100, 500);
 		World.getInstance ().addBody (body);
-		character = new Character ();
+		
+		character = new Character (420.5f, 200);
+		
+		OrthographicCamera camera = new OrthographicCamera (GameSystem.SCREEN_W, GameSystem.SCREEN_H);
+		camera.setToOrtho (false);
+		Render.getInstance ().setOrthographicCamera (camera);
 	}
 	
 	@Override
 	public void render (float delta){
-		World.getInstance ().update ();
-		World.getInstance ().draw ();
-		
 		character.update ();
+		World.getInstance ().drawBody ();
 		
 		if (Gdx.input.isKeyJustPressed (Input.Keys.ESCAPE)){
 			MyGame.getInstance ().setScreen (SelectedModeScreen.getInstance ());

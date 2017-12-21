@@ -1,14 +1,11 @@
 package com.introfog.primitiveEngine;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.introfog.GameSystem;
 import com.introfog.primitiveEngine.messages.WorldMessage;
 import com.introfog.render.Render;
 
 import java.util.LinkedList;
 
 public class World{
-	private LinkedList <WorldMessage> messages;
 	private LinkedList <Body> objects;
 	
 	
@@ -17,11 +14,7 @@ public class World{
 	}
 	
 	private World (){
-		messages = new LinkedList <> ();
 		objects = new LinkedList <> ();
-		OrthographicCamera camera = new OrthographicCamera (GameSystem.SCREEN_W, GameSystem.SCREEN_H);
-		camera.setToOrtho (false);
-		Render.getInstance ().setOrthographicCamera (camera);
 	}
 	
 	
@@ -34,20 +27,13 @@ public class World{
 	}
 	
 	public void addMessage (WorldMessage message){
-		messages.add (message);
-	}
-	
-	public void update (){
-		while (!messages.isEmpty ()){
-			WorldMessage msg = messages.remove ();
-			
-			for (int i = objects.size () - 1; i > -1 && !objects.isEmpty (); i--){
-				objects.get (i).sendMessage (msg);
-			}
+		boolean next = true;
+		for (int i = objects.size () - 1; i > -1 && !objects.isEmpty () && next; i--){
+			next = !objects.get (i).sendMessage (message);
 		}
 	}
 	
-	public void draw (){
+	public void drawBody (){
 		for (Body tmpB : objects){
 			tmpB.drawBody ();
 		}

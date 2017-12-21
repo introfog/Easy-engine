@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.introfog.GameSystem;
 import com.introfog.MyGame;
 
 public class SelectedModeScreen implements Screen{
@@ -32,18 +31,7 @@ public class SelectedModeScreen implements Screen{
 	
 	private void createContinueGameButton (){
 		TextButton continueGame;
-		continueGame = new TextButton ("Продолжить", TextStyle.getInstance ().normalStyle);
-		if (GameSystem.IS_FIRST_GAME_START){
-			continueGame.setStyle (TextStyle.getInstance ().closedStyle);
-		}
-		continueGame.addListener (new ClickListener (){
-			@Override
-			public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-				if (!GameSystem.IS_FIRST_GAME_START){
-					MyGame.getInstance ().setScreen (PlayScreen.getInstance ());
-				}
-			}
-		});
+		continueGame = new TextButton ("Продолжить", TextStyle.getInstance ().closedStyle);
 		continueGame.setBounds (Gdx.graphics.getWidth () / 2 - MyGame.BUTTON_W / 2,
 				Gdx.graphics.getHeight () / 2 + MyGame.BUTTON_H + MyGame.DISTANCE_BETWEEN_BUTTONS, MyGame.BUTTON_W,
 				MyGame.BUTTON_H);
@@ -52,10 +40,7 @@ public class SelectedModeScreen implements Screen{
 	
 	private void createSelectedLVLButton (){
 		TextButton selectedLVL;
-		selectedLVL = new TextButton ("Уровни", TextStyle.getInstance ().normalStyle);
-		if (GameSystem.IS_FIRST_GAME_START){
-			selectedLVL.setStyle (TextStyle.getInstance ().closedStyle);
-		}
+		selectedLVL = new TextButton ("Уровни", TextStyle.getInstance ().closedStyle);
 		selectedLVL.setBounds (Gdx.graphics.getWidth () / 2 - MyGame.BUTTON_W / 2, Gdx.graphics.getHeight () / 2,
 				MyGame.BUTTON_W, MyGame.BUTTON_H);
 		widgetGroup.addActor (selectedLVL);
