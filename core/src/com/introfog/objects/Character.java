@@ -2,6 +2,7 @@ package com.introfog.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.introfog.primitiveEngine.*;
 
 public class Character{
@@ -9,8 +10,8 @@ public class Character{
 	
 	
 	public Character (float x, float y){
-		body = new Body (x, y, 20, 20, BodyType.dynamical, 1f);
-		World.getInstance ().addBody (body);
+		body = new Body (x, y, 20, 20, BodyType.dynamical, 1f, Color.BLUE);
+		World.getInstance ().addObject (body);
 	}
 	
 	public void update (){

@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.LinkedList;
 
 public class Render{
-	private OrthographicCamera camera;
+	public OrthographicCamera camera;
+	
 	private ShapeRenderer shapeRenderer;
 	private LinkedList <Rectangle> rectangles;
 	
@@ -36,9 +37,10 @@ public class Render{
 		
 		camera.update ();
 		
-		shapeRenderer.setColor (Color.WHITE);
+		
 		shapeRenderer.begin (ShapeRenderer.ShapeType.Line);
 		for (Rectangle tmpR : rectangles){
+			shapeRenderer.setColor (tmpR.color);
 			shapeRenderer.rect (tmpR.getX (), tmpR.getY (), tmpR.getW (), tmpR.getH ());
 		}
 		shapeRenderer.end ();

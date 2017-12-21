@@ -21,7 +21,7 @@ public class World{
 		return ObjectManagerHolder.instance;
 	}
 	
-	public void addBody (Body body){
+	public void addObject (Body body){
 		objects.add (body);
 	}
 	

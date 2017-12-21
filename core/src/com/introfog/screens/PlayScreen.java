@@ -5,12 +5,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import com.introfog.GameSystem;
 import com.introfog.MyGame;
+import com.introfog.objects.Hole;
 import com.introfog.primitiveEngine.*;
 import com.introfog.objects.Character;
 import com.introfog.primitiveEngine.Render;
 
 public class PlayScreen implements Screen{
 	private Character character;
+	private Hole hole;
 	
 	
 	private static class PlayScreenHolder{
@@ -29,10 +31,11 @@ public class PlayScreen implements Screen{
 		Body body;
 		
 		body = new Body (100, 100, 200, 300);
-		World.getInstance ().addBody (body);
+		World.getInstance ().addObject (body);
 		body = new Body (320, 50, 100, 500, BodyType.dynamical, 0.5f);
-		World.getInstance ().addBody (body);
+		World.getInstance ().addObject (body);
 		
+		hole = new Hole (600, 200, 150, 200);
 		character = new Character (420.5f, 200);
 		
 		OrthographicCamera camera = new OrthographicCamera (GameSystem.SCREEN_W, GameSystem.SCREEN_H);
@@ -43,6 +46,7 @@ public class PlayScreen implements Screen{
 	@Override
 	public void render (float delta){
 		character.update ();
+		hole.update ();
 		World.getInstance ().drawBody ();
 		
 		if (Gdx.input.isKeyJustPressed (Input.Keys.ESCAPE)){

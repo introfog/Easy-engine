@@ -1,10 +1,13 @@
 package com.introfog.primitiveEngine;
 
+import com.badlogic.gdx.graphics.Color;
+
 public class Rectangle{
 	private float x;
 	private float y;
 	private float w;
 	private float h;
+	public Color color = Color.WHITE;
 	
 	
 	public Rectangle (float x, float y, float w, float h){

@@ -1,5 +1,6 @@
 package com.introfog.primitiveEngine;
 
+import com.badlogic.gdx.graphics.Color;
 import com.introfog.primitiveEngine.messages.*;
 
 public class Body{
@@ -11,10 +12,22 @@ public class Body{
 		body = new Rectangle (x, y, w, h);
 	}
 	
+	public Body (float x, float y, float w, float h, Color color){
+		body = new Rectangle (x, y, w, h);
+		body.color = color;
+	}
+	
 	public Body (float x, float y, float w, float h, BodyType type, float friction){
 		this.friction = friction;
 		this.type = type;
 		body = new Rectangle (x, y, w, h);
+	}
+	
+	public Body (float x, float y, float w, float h, BodyType type, float friction, Color color){
+		this.friction = friction;
+		this.type = type;
+		body = new Rectangle (x, y, w, h);
+		body.color = color;
 	}
 	
 	public void move (float deltaX, float deltaY){
