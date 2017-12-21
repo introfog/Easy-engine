@@ -1,9 +1,8 @@
-package com.introfog.primitiveEngine;
+package com.introfog.primitiveIsometricEngine;
 
 import com.badlogic.gdx.graphics.Color;
-import com.introfog.primitiveEngine.messages.*;
+import com.introfog.primitiveIsometricEngine.messages.*;
 
-import java.util.Collections;
 import java.util.LinkedList;
 
 public class TriggeredZone extends Body{
@@ -48,7 +47,7 @@ public class TriggeredZone extends Body{
 					inZone.remove (msg.body);
 				}
 			}
-			else if (type == ZoneType.conatains){
+			else if (type == ZoneType.contains){
 				if (body.contains (rect.getX () + msg.deltaX, rect.getY () + msg.deltaY, rect.getW (), rect.getH ())){
 					if (!inZone.contains (msg.body)){
 						inZone.add (msg.body);
@@ -63,7 +62,7 @@ public class TriggeredZone extends Body{
 	
 	@Override
 	public void drawBody (){
-		Render.getInstance ().addRectangle (body);
+		RenderWorld.getInstance ().addRectangle (body);
 	}
 	
 	public LinkedList <Body> getInZone (){

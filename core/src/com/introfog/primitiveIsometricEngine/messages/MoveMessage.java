@@ -1,7 +1,6 @@
-package com.introfog.primitiveEngine.messages;
+package com.introfog.primitiveIsometricEngine.messages;
 
-
-import com.introfog.primitiveEngine.Body;
+import com.introfog.primitiveIsometricEngine.Body;
 
 public class MoveMessage extends WorldMessage{
 	public float deltaX;

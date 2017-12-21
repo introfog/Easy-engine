@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.introfog.GameSystem;
 import com.introfog.MyGame;
 import com.introfog.objects.Hole;
-import com.introfog.primitiveEngine.*;
+import com.introfog.primitiveIsometricEngine.*;
 import com.introfog.objects.Character;
-import com.introfog.primitiveEngine.Render;
+import com.introfog.primitiveIsometricEngine.RenderWorld;
 
 public class PlayScreen implements Screen{
 	private Character character;
@@ -40,14 +40,14 @@ public class PlayScreen implements Screen{
 		
 		OrthographicCamera camera = new OrthographicCamera (GameSystem.SCREEN_W, GameSystem.SCREEN_H);
 		camera.setToOrtho (false);
-		Render.getInstance ().setOrthographicCamera (camera);
+		//RenderWorld.getInstance ().setOrthographicCamera (camera);
 	}
 	
 	@Override
 	public void render (float delta){
 		character.update ();
 		hole.update ();
-		World.getInstance ().drawBody ();
+		//World.getInstance ().drawBody ();
 		
 		if (Gdx.input.isKeyJustPressed (Input.Keys.ESCAPE)){
 			MyGame.getInstance ().setScreen (SelectedModeScreen.getInstance ());

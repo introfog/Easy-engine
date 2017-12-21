@@ -2,7 +2,7 @@ package com.introfog.objects;
 
 import com.badlogic.gdx.graphics.Color;
 
-import com.introfog.primitiveEngine.*;
+import com.introfog.primitiveIsometricEngine.*;
 
 public class Hole{
 	private TriggeredZone zone;

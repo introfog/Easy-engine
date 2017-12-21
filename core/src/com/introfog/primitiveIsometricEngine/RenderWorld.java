@@ -1,43 +1,32 @@
-package com.introfog.primitiveEngine;
+package com.introfog.primitiveIsometricEngine;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 
 import java.util.LinkedList;
 
-public class Render{
-	public OrthographicCamera camera;
-	
+public class RenderWorld{
 	private ShapeRenderer shapeRenderer;
 	private LinkedList <Rectangle> rectangles;
 	
 	
 	private static class RenderHolder{
-		private final static Render instance = new Render ();
+		private final static RenderWorld instance = new RenderWorld ();
 	}
 	
-	private Render (){
+	private RenderWorld (){
 		shapeRenderer = new ShapeRenderer ();
 		rectangles = new LinkedList <> ();
 	}
 	
 	
-	public static Render getInstance (){
+	public static RenderWorld getInstance (){
 		return RenderHolder.instance;
 	}
 	
-	public void setOrthographicCamera (OrthographicCamera camera){
-		this.camera = camera;
-	}
 	
-	public void renderScene (){
-		Gdx.gl.glClearColor (0, 0, 0, 1);
-		Gdx.gl.glClear (GL20.GL_COLOR_BUFFER_BIT);
-		
-		camera.update ();
-		
-		
+	public void renderScene (Matrix4 matrix){
+		shapeRenderer.setProjectionMatrix (matrix);
 		shapeRenderer.begin (ShapeRenderer.ShapeType.Line);
 		for (Rectangle tmpR : rectangles){
 			shapeRenderer.setColor (tmpR.color);

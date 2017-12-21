@@ -3,7 +3,7 @@ package com.introfog.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.introfog.primitiveEngine.*;
+import com.introfog.primitiveIsometricEngine.*;
 
 public class Character{
 	private Body body;
@@ -11,6 +11,7 @@ public class Character{
 	
 	public Character (float x, float y){
 		body = new Body (x, y, 20, 20, BodyType.dynamical, 1f, Color.BLUE);
+		body.move (0, 0.25f);
 		World.getInstance ().addObject (body);
 	}
 	

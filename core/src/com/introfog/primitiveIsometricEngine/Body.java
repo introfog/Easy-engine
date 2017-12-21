@@ -1,7 +1,7 @@
-package com.introfog.primitiveEngine;
+package com.introfog.primitiveIsometricEngine;
 
 import com.badlogic.gdx.graphics.Color;
-import com.introfog.primitiveEngine.messages.*;
+import com.introfog.primitiveIsometricEngine.messages.*;
 
 public class Body{
 	private float friction = 1;
@@ -36,7 +36,7 @@ public class Body{
 	}
 	
 	public void drawBody (){
-		Render.getInstance ().addRectangle (body);
+		RenderWorld.getInstance ().addRectangle (body);
 	}
 	
 	public void sendMessage (WorldMessage message){
@@ -66,5 +66,29 @@ public class Body{
 			PushOutMessage msg = (PushOutMessage) message;
 			move (msg.deltaX, msg.deltaY);
 		}
+	}
+	
+	public void setBodyType (BodyType type){
+		this.type = type;
+	}
+	
+	public void setPosition (float x, float y){
+		body.setPosition (x, y);
+	}
+	
+	public float getX (){
+		return body.getX ();
+	}
+	
+	public float getY (){
+		return body.getY ();
+	}
+	
+	public float getW (){
+		return body.getW ();
+	}
+	
+	public float getH (){
+		return body.getH ();
 	}
 }
