@@ -1,12 +1,19 @@
 package com.introfog.primitiveEngine;
 
 import com.introfog.primitiveEngine.messages.*;
-import com.introfog.render.Render;
 
 public class Body{
+	private float friction = 1;
+	private BodyType type = BodyType.statical;
 	private Rectangle body;
 	
 	public Body (float x, float y, float w, float h){
+		body = new Rectangle (x, y, w, h);
+	}
+	
+	public Body (float x, float y, float w, float h, BodyType type, float friction){
+		this.friction = friction;
+		this.type = type;
 		body = new Rectangle (x, y, w, h);
 	}
 	
@@ -25,18 +32,30 @@ public class Body{
 			Rectangle rect = msg.body.body;
 			boolean handle = false;
 			if (msg.deltaX != 0 && body.intersects (rect.getX () + msg.deltaX, rect.getY (), rect.getW (), rect.getH ())){
-				World.getInstance ().addMessage (new PushOutMessage (msg.body, -msg.deltaX, 0));
+				if (type == BodyType.statical){
+					World.getInstance ().addMessage (new PushOutMessage (msg.body, -msg.deltaX, 0));
+				}
+				else if (type == BodyType.dynamical){
+					move (msg.deltaX * friction, 0);
+					World.getInstance ().addMessage (new PushOutMessage (msg.body, -msg.deltaX * friction, 0));
+				}
 				handle = true;
 			}
 			if (msg.deltaY != 0 && body.intersects (rect.getX (), rect.getY () + msg.deltaY, rect.getW (), rect.getH ())){
-				World.getInstance ().addMessage (new PushOutMessage (msg.body, 0, -msg.deltaY));
+				if (type == BodyType.statical){
+					World.getInstance ().addMessage (new PushOutMessage (msg.body, 0, -msg.deltaY));
+				}
+				else if (type == BodyType.dynamical){
+					move (0, msg.deltaY * friction);
+					World.getInstance ().addMessage (new PushOutMessage (msg.body, 0, -msg.deltaY * friction));
+				}
 				handle = true;
 			}
 			return handle;
 		}
 		else if (message.type == MessageType.pushOut && message.body == this){
 			PushOutMessage msg = (PushOutMessage) message;
-			body.move (msg.deltaX, msg.deltaY);
+			move (msg.deltaX, msg.deltaY);
 			return true;
 		}
 		return false;

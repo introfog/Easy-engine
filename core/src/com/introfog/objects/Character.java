@@ -1,14 +1,15 @@
-package com.introfog.primitiveEngine;
+package com.introfog.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.introfog.primitiveEngine.*;
 
 public class Character{
 	private Body body;
 	
 	
 	public Character (float x, float y){
-		body = new Body (x, y, 20, 20);
+		body = new Body (x, y, 20, 20, BodyType.dynamical, 1f);
 		World.getInstance ().addBody (body);
 	}
 	

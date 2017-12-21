@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.introfog.GameSystem;
 import com.introfog.MyGame;
 import com.introfog.primitiveEngine.*;
-import com.introfog.primitiveEngine.Character;
-import com.introfog.render.Render;
+import com.introfog.objects.Character;
+import com.introfog.primitiveEngine.Render;
 
 public class PlayScreen implements Screen{
 	private Character character;
@@ -27,9 +27,9 @@ public class PlayScreen implements Screen{
 	public void show (){
 		Body body;
 		
-		body = new Body (100, 100, 199, 300);
+		body = new Body (100, 100, 200, 300);
 		World.getInstance ().addBody (body);
-		body = new Body (320, 50, 100, 500);
+		body = new Body (320, 50, 100, 500, BodyType.dynamical, 0.5f);
 		World.getInstance ().addBody (body);
 		
 		character = new Character (420.5f, 200);

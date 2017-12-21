@@ -1,9 +1,8 @@
-package com.introfog.render;
+package com.introfog.primitiveEngine;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.introfog.primitiveEngine.Rectangle;
 
 import java.util.LinkedList;
 

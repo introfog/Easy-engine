@@ -1,7 +1,6 @@
 package com.introfog.primitiveEngine;
 
 import com.introfog.primitiveEngine.messages.WorldMessage;
-import com.introfog.render.Render;
 
 import java.util.LinkedList;
 
@@ -27,9 +26,8 @@ public class World{
 	}
 	
 	public void addMessage (WorldMessage message){
-		boolean next = true;
-		for (int i = objects.size () - 1; i > -1 && !objects.isEmpty () && next; i--){
-			next = !objects.get (i).sendMessage (message);
+		for (int i = objects.size () - 1; i > -1 && !objects.isEmpty (); i--){
+			objects.get (i).sendMessage (message);
 		}
 	}
 	
