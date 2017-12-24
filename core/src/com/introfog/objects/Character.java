@@ -6,13 +6,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.introfog.primitiveIsometricEngine.*;
 
 public class Character{
-	private Body body;
+	private BodyPIE bodyPIE;
 	
 	
 	public Character (float x, float y){
-		body = new Body (x, y, 20, 20, BodyType.dynamical, 1f, Color.BLUE);
-		body.move (0, 0.25f);
-		World.getInstance ().addObject (body);
+		bodyPIE = new BodyPIE (x, y, 20, 20, BodyType.dynamical, 1f, Color.BLUE);
 	}
 	
 	public void update (){
@@ -32,7 +30,7 @@ public class Character{
 		}
 		
 		if (deltaX != 0 || deltaY != 0){
-			body.move (deltaX, deltaY);
+			bodyPIE.move (deltaX, deltaY);
 		}
 	}
 }
