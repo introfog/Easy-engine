@@ -4,7 +4,6 @@ import static java.awt.Toolkit.getDefaultToolkit;
 
 
 public abstract class GameSystem{
-	public static final String NAME_JAR_ARCHIVE = "project6.jar";
 	//public static final boolean FULL_SCREEN = true;
 	public static final boolean FULL_SCREEN = false;
 	//public static final float SCREEN_W = getDefaultToolkit ().getScreenSize ().width;

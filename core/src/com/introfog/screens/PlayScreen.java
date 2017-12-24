@@ -1,18 +1,18 @@
 package com.introfog.screens;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.*;
 
 import com.introfog.GameSystem;
 import com.introfog.MyGame;
 import com.introfog.objects.Hole;
 import com.introfog.primitiveIsometricEngine.*;
 import com.introfog.objects.Character;
-import com.introfog.primitiveIsometricEngine.RenderWorld;
 
 public class PlayScreen implements Screen{
 	private Character character;
 	private Hole hole;
+	private OrthographicCamera camera;
 	
 	
 	private static class PlayScreenHolder{
@@ -28,29 +28,28 @@ public class PlayScreen implements Screen{
 	
 	@Override
 	public void show (){
-		Body body;
-		
-		body = new Body (100, 100, 200, 300);
-		World.getInstance ().addObject (body);
-		body = new Body (320, 50, 100, 500, BodyType.dynamical, 0.5f);
-		World.getInstance ().addObject (body);
+		new BodyPIE (100, 100, 200, 300);
+		new BodyPIE (320, 50, 100, 500, BodyType.dynamical, 0.5f);
 		
 		hole = new Hole (600, 200, 150, 200);
 		character = new Character (420.5f, 200);
 		
-		OrthographicCamera camera = new OrthographicCamera (GameSystem.SCREEN_W, GameSystem.SCREEN_H);
+		camera = new OrthographicCamera (GameSystem.SCREEN_W, GameSystem.SCREEN_H);
 		camera.setToOrtho (false);
-		//RenderWorld.getInstance ().setOrthographicCamera (camera);
 	}
 	
 	@Override
 	public void render (float delta){
 		character.update ();
 		hole.update ();
-		//World.getInstance ().drawBody ();
+		
+		Gdx.gl.glClearColor (0, 0, 0, 1);
+		Gdx.gl.glClear (GL20.GL_COLOR_BUFFER_BIT);
+		camera.update ();
+		World.getInstance ().drawBody (camera.combined);
 		
 		if (Gdx.input.isKeyJustPressed (Input.Keys.ESCAPE)){
-			MyGame.getInstance ().setScreen (SelectedModeScreen.getInstance ());
+			MyGame.getInstance ().setScreen (MainMenuScreen.getInstance ());
 		}
 	}
 	

@@ -18,11 +18,11 @@ public class MainMenuScreen implements Screen{
 	
 	private void createPlayButton (){
 		TextButton play;
-		play = new TextButton ("Играть", TextStyle.getInstance ().normalStyle);
+		play = new TextButton ("Начать", TextStyle.getInstance ().normalStyle);
 		play.addListener (new ClickListener (){
 			@Override
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-				MyGame.getInstance ().setScreen (SelectedModeScreen.getInstance ());
+				MyGame.getInstance ().setScreen (PlayScreen.getInstance ());
 			}
 		});
 		play.setBounds (Gdx.graphics.getWidth () / 2 - MyGame.BUTTON_W / 2,
@@ -31,38 +31,22 @@ public class MainMenuScreen implements Screen{
 		widgetGroup.addActor (play);
 	}
 	
-	private void createSettingsButton (){
-		TextButton settings;
-		settings = new TextButton ("Настройки", TextStyle.getInstance ().normalStyle);
-		settings.addListener (new ClickListener (){
-			@Override
-			public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-				MyGame.getInstance ().setScreen (SettingsScreen.getInstance ());
-			}
-		});
-		settings.setBounds (Gdx.graphics.getWidth () / 2 - MyGame.BUTTON_W / 2,
-				Gdx.graphics.getHeight () / 2, MyGame.BUTTON_W, MyGame.BUTTON_H);
-		widgetGroup.addActor (settings);
-	}
-	
 	private void createExitButton (){
 		TextButton exit;
 		exit = new TextButton ("Выход", TextStyle.getInstance ().normalStyle);
 		exit.addListener (new ClickListener (){
 			@Override
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-				MyGame.getInstance ().setScreen (QuitGameScreen.getInstance ());
+				Gdx.app.exit ();
 			}
 		});
 		exit.setBounds (Gdx.graphics.getWidth () / 2 - MyGame.BUTTON_W / 2,
-				Gdx.graphics.getHeight () / 2 - MyGame.BUTTON_H - MyGame.DISTANCE_BETWEEN_BUTTONS,
-				MyGame.BUTTON_W, MyGame.BUTTON_H);
+				Gdx.graphics.getHeight () / 2, MyGame.BUTTON_W, MyGame.BUTTON_H);
 		widgetGroup.addActor (exit);
 	}
 	
 	private void createButton (){
 		createPlayButton ();
-		createSettingsButton ();
 		createExitButton ();
 		
 		stage.addActor (widgetGroup);
