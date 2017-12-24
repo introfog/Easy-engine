@@ -6,7 +6,7 @@ import com.introfog.primitiveIsometricEngine.messages.WorldMessage;
 import java.util.LinkedList;
 
 public class World{
-	private LinkedList <Body> objects;
+	private LinkedList <BodyPIE> objects;
 	
 	
 	private static class ObjectManagerHolder{
@@ -22,19 +22,23 @@ public class World{
 		return ObjectManagerHolder.instance;
 	}
 	
-	public void addObject (Body body){
-		objects.add (body);
+	public void addObject (BodyPIE bodyPIE){
+		objects.add (bodyPIE);
 	}
 	
 	public void addMessage (WorldMessage message){
 		for (int i = objects.size () - 1; i > -1 && !objects.isEmpty (); i--){
-			objects.get (i).sendMessage (message);
+			if (!objects.get (i).isGhost ()){
+				objects.get (i).sendMessage (message);
+			}
 		}
 	}
 	
 	public void drawBody (Matrix4 matrix){
-		for (Body tmpB : objects){
-			tmpB.drawBody ();
+		for (BodyPIE tmpB : objects){
+			if (!tmpB.isGhost){
+				tmpB.drawBody ();
+			}
 		}
 		RenderWorld.getInstance ().renderScene (matrix);
 	}
