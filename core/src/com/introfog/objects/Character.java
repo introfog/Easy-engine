@@ -9,26 +9,28 @@ public class Character{
 	private BodyPIE bodyPIE;
 	
 	
-	public Character (float x, float y){
-		bodyPIE = new BodyPIE (x, y, 20, 20, BodyType.dynamical, 1f, Color.BLUE);
+	public Character (float x, float y, float w, float h){
+		bodyPIE = new BodyPIE (x, y, w, h, BodyType.dynamical, 1f, Color.BLUE);
 	}
 	
 	public void update (){
 		float deltaX = 0;
 		float deltaY = 0;
+		final float speed = 2;
 		if (Gdx.input.isKeyPressed (Input.Keys.W)){
-			deltaY = 100 * Gdx.graphics.getDeltaTime ();
+			deltaY = speed;
 		}
 		if (Gdx.input.isKeyPressed (Input.Keys.D)){
-			deltaX = 100 * Gdx.graphics.getDeltaTime ();
+			deltaX = speed;
 		}
 		if (Gdx.input.isKeyPressed (Input.Keys.S)){
-			deltaY = -100 * Gdx.graphics.getDeltaTime ();
+			deltaY = -speed;
 		}
 		if (Gdx.input.isKeyPressed (Input.Keys.A)){
-			deltaX = -100 * Gdx.graphics.getDeltaTime ();
+			deltaX = -speed;
 		}
-		
+		//deltaX = -0.5f;
+		//deltaY = 0.5f;
 		if (deltaX != 0 || deltaY != 0){
 			bodyPIE.move (deltaX, deltaY);
 		}

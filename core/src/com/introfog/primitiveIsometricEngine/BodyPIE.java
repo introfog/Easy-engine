@@ -8,6 +8,8 @@ public class BodyPIE{
 	protected boolean isGhost = false;
 	protected Rectangle body;
 	
+	private float pushOutX;
+	private float pushOutY;
 	private float friction = 1;
 	private BodyType type = BodyType.statical;
 	
@@ -62,16 +64,18 @@ public class BodyPIE{
 		if (message.type == MessageType.move && message.bodyPIE != this){
 			MoveMessage msg = (MoveMessage) message;
 			Rectangle rect = msg.bodyPIE.body;
+			pushOutX = 0;
+			pushOutY = 0;
 			if (msg.deltaX != 0 && body.intersects (rect.getX () + msg.deltaX, rect.getY (), rect.getW (), rect.getH ())){
 				if (body.contains (rect.getX () + msg.deltaX, rect.getY (), rect.getW (), rect.getH ())){
 					return;
 				}
 				if (type == BodyType.statical){
-					World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, -msg.deltaX, 0));
+					pushOutX = -msg.deltaX;
 				}
 				else if (type == BodyType.dynamical){
 					move (msg.deltaX * friction, 0);
-					World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, -msg.deltaX * (1 - friction), 0));
+					pushOutX = -msg.deltaX * (1 - friction);
 				}
 			}
 			if (msg.deltaY != 0 && body.intersects (rect.getX (), rect.getY () + msg.deltaY, rect.getW (), rect.getH ())){
@@ -79,12 +83,18 @@ public class BodyPIE{
 					return;
 				}
 				if (type == BodyType.statical){
-					World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, 0, -msg.deltaY));
+					pushOutY = -msg.deltaY;
 				}
 				else if (type == BodyType.dynamical){
 					move (0, msg.deltaY * friction);
-					World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, 0, -msg.deltaY * (1 - friction)));
+					pushOutY = -msg.deltaY * (1 - friction);
 				}
+			}
+			if (pushOutX != 0 && pushOutY != 0){
+				World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, pushOutX * 1.2f, pushOutY * 1.2f));
+			}
+			else if (pushOutX != 0 || pushOutY != 0){
+				World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, pushOutX, pushOutY));
 			}
 		}
 		else if (message.type == MessageType.pushOut && message.bodyPIE == this){

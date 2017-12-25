@@ -29,10 +29,10 @@ public class PlayScreen implements Screen{
 	@Override
 	public void show (){
 		new BodyPIE (100, 100, 200, 300);
-		new BodyPIE (320, 50, 100, 500, BodyType.dynamical, 0.5f);
+		new BodyPIE (450, 50, 100, 500, BodyType.dynamical, 0.5f);
 		
 		hole = new Hole (600, 200, 150, 200);
-		character = new Character (420.5f, 200);
+		character = new Character (330, 50, 20, 20);
 		
 		camera = new OrthographicCamera (GameSystem.SCREEN_W, GameSystem.SCREEN_H);
 		camera.setToOrtho (false);
