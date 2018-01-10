@@ -8,10 +8,25 @@ public class BodyPIE{
 	protected boolean isGhost = false;
 	protected Rectangle body;
 	
-	private float pushOutX;
-	private float pushOutY;
 	private float friction = 1;
 	private BodyType type = BodyType.statical;
+	
+	
+	private void moveX (float deltaX){
+		if (isGhost){
+			return;
+		}
+		World.getInstance ().addMessage (new MoveMessage (this, deltaX, 0));
+		body.move (deltaX, 0);
+	}
+	
+	private void moveY (float deltaY){
+		if (isGhost){
+			return;
+		}
+		World.getInstance ().addMessage (new MoveMessage (this, 0, deltaY));
+		body.move (0, deltaY);
+	}
 	
 	
 	public BodyPIE (float x, float y, float w, float h){
@@ -40,10 +55,6 @@ public class BodyPIE{
 		World.getInstance ().addObject (this);
 	}
 	
-	public boolean isGhost (){
-		return isGhost;
-	}
-	
 	public void setGhost (boolean isGhost){
 		this.isGhost = isGhost;
 	}
@@ -52,54 +63,64 @@ public class BodyPIE{
 		if (isGhost){
 			return;
 		}
-		World.getInstance ().addMessage (new MoveMessage (this, deltaX, deltaY));
-		body.move (deltaX, deltaY);
+		if (deltaX != 0){
+			moveX (deltaX);
+		}
+		if (deltaY != 0){
+			moveY (deltaY);
+		}
 	}
 	
 	public void drawBody (){
+		if (isGhost){
+			return;
+		}
 		RenderWorld.getInstance ().addRectangle (body);
 	}
 	
 	public void sendMessage (WorldMessage message){
+		if (isGhost){
+			return;
+		}
 		if (message.type == MessageType.move && message.bodyPIE != this){
 			MoveMessage msg = (MoveMessage) message;
 			Rectangle rect = msg.bodyPIE.body;
-			pushOutX = 0;
-			pushOutY = 0;
-			if (msg.deltaX != 0 && body.intersects (rect.getX () + msg.deltaX, rect.getY (), rect.getW (), rect.getH ())){
-				if (body.contains (rect.getX () + msg.deltaX, rect.getY (), rect.getW (), rect.getH ())){
-					return;
-				}
+			float pushOutX;
+			float pushOutY;
+			
+			if (body.contains (rect.getX () + msg.deltaX, rect.getY () + msg.deltaY, rect.getW (), rect.getH ())){
+				return;
+			}
+			else if (body.intersects (rect.getX (), rect.getY (), rect.getW (), rect.getH ())){
+				return;
+			}
+			else if (body.intersects (rect.getX () + msg.deltaX, rect.getY () + msg.deltaY, rect.getW (), rect.getH ())){
 				if (type == BodyType.statical){
 					pushOutX = -msg.deltaX;
-				}
-				else if (type == BodyType.dynamical){
-					move (msg.deltaX * friction, 0);
-					pushOutX = -msg.deltaX * (1 - friction);
-				}
-			}
-			if (msg.deltaY != 0 && body.intersects (rect.getX (), rect.getY () + msg.deltaY, rect.getW (), rect.getH ())){
-				if (body.contains (rect.getX (), rect.getY () + msg.deltaY, rect.getW (), rect.getH ())){
-					return;
-				}
-				if (type == BodyType.statical){
 					pushOutY = -msg.deltaY;
+					World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, pushOutX, pushOutY));
 				}
 				else if (type == BodyType.dynamical){
-					move (0, msg.deltaY * friction);
+					move (msg.deltaX * friction, msg.deltaY * friction);
+					pushOutX = -msg.deltaX * (1 - friction);
 					pushOutY = -msg.deltaY * (1 - friction);
+					msg.bodyPIE.move (pushOutX, pushOutY);
 				}
-			}
-			if (pushOutX != 0 && pushOutY != 0){
-				World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, pushOutX * 1.2f, pushOutY * 1.2f));
-			}
-			else if (pushOutX != 0 || pushOutY != 0){
-				World.getInstance ().addMessage (new PushOutMessage (msg.bodyPIE, pushOutX, pushOutY));
 			}
 		}
 		else if (message.type == MessageType.pushOut && message.bodyPIE == this){
 			PushOutMessage msg = (PushOutMessage) message;
 			move (msg.deltaX, msg.deltaY);
+		}
+		else if (message.type == MessageType.pushOut){
+			PushOutMessage msg = (PushOutMessage) message;
+			Rectangle rect = msg.bodyPIE.body;
+			
+			if (body.intersects (rect.getX () + msg.deltaX, rect.getY () + msg.deltaY, rect.getW (), rect.getH ())){
+				if (type == BodyType.dynamical){
+					move (msg.deltaX, msg.deltaY);
+				}
+			}
 		}
 	}
 	

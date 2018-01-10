@@ -16,7 +16,7 @@ public class Character{
 	public void update (){
 		float deltaX = 0;
 		float deltaY = 0;
-		final float speed = 2;
+		final float speed = 100 * Gdx.graphics.getDeltaTime ();
 		if (Gdx.input.isKeyPressed (Input.Keys.W)){
 			deltaY = speed;
 		}
@@ -29,8 +29,7 @@ public class Character{
 		if (Gdx.input.isKeyPressed (Input.Keys.A)){
 			deltaX = -speed;
 		}
-		//deltaX = -0.5f;
-		//deltaY = 0.5f;
+	
 		if (deltaX != 0 || deltaY != 0){
 			bodyPIE.move (deltaX, deltaY);
 		}

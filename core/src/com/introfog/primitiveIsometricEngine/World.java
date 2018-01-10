@@ -28,17 +28,13 @@ public class World{
 	
 	public void addMessage (WorldMessage message){
 		for (int i = objects.size () - 1; i > -1 && !objects.isEmpty (); i--){
-			if (!objects.get (i).isGhost ()){
-				objects.get (i).sendMessage (message);
-			}
+			objects.get (i).sendMessage (message);
 		}
 	}
 	
 	public void drawBody (Matrix4 matrix){
 		for (BodyPIE tmpB : objects){
-			if (!tmpB.isGhost){
-				tmpB.drawBody ();
-			}
+			tmpB.drawBody ();
 		}
 		RenderWorld.getInstance ().renderScene (matrix);
 	}

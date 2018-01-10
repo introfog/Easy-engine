@@ -29,10 +29,11 @@ public class PlayScreen implements Screen{
 	@Override
 	public void show (){
 		new BodyPIE (100, 100, 200, 300);
-		new BodyPIE (450, 50, 100, 500, BodyType.dynamical, 0.5f);
+		new BodyPIE (400, 300, 100, 150, BodyType.dynamical, 0.5f, Color.PINK);
+		new BodyPIE (350, 50, 100, 200, BodyType.dynamical, 0.5f, Color.PINK);
 		
 		hole = new Hole (600, 200, 150, 200);
-		character = new Character (330, 50, 20, 20);
+		character = new Character (150, 300, 20, 20);
 		
 		camera = new OrthographicCamera (GameSystem.SCREEN_W, GameSystem.SCREEN_H);
 		camera.setToOrtho (false);
@@ -49,6 +50,7 @@ public class PlayScreen implements Screen{
 		World.getInstance ().drawBody (camera.combined);
 		
 		if (Gdx.input.isKeyJustPressed (Input.Keys.ESCAPE)){
+			World.getInstance ().clear ();
 			MyGame.getInstance ().setScreen (MainMenuScreen.getInstance ());
 		}
 	}
