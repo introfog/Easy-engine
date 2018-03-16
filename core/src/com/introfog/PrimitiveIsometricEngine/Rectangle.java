@@ -1,4 +1,4 @@
-package com.introfog.primitiveIsometricEngine;
+package com.introfog.PrimitiveIsometricEngine;
 
 import com.badlogic.gdx.graphics.Color;
 

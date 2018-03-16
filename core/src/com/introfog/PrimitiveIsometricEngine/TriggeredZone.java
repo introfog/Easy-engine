@@ -1,8 +1,8 @@
-package com.introfog.primitiveIsometricEngine;
+package com.introfog.PrimitiveIsometricEngine;
 
 import com.badlogic.gdx.graphics.Color;
 
-import com.introfog.primitiveIsometricEngine.messages.*;
+import com.introfog.PrimitiveIsometricEngine.messages.*;
 
 import java.util.LinkedList;
 

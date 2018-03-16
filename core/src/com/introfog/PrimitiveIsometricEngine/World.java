@@ -1,7 +1,7 @@
-package com.introfog.primitiveIsometricEngine;
+package com.introfog.PrimitiveIsometricEngine;
 
 import com.badlogic.gdx.math.Matrix4;
-import com.introfog.primitiveIsometricEngine.messages.WorldMessage;
+import com.introfog.PrimitiveIsometricEngine.messages.WorldMessage;
 
 import java.util.LinkedList;
 

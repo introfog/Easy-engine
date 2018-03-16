@@ -1,6 +1,6 @@
-package com.introfog.primitiveIsometricEngine.messages;
+package com.introfog.PrimitiveIsometricEngine.messages;
 
-import com.introfog.primitiveIsometricEngine.BodyPIE;
+import com.introfog.PrimitiveIsometricEngine.BodyPIE;
 
 public class PushOutMessage extends WorldMessage{
 	public float deltaX;
